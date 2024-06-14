@@ -42,4 +42,18 @@ public class BookService {
         bookStorage.add(book);
         return book;
     }
+    public Optional<BookEntity> edit(BookEntity book) {
+        BookEntity oldBookEntity = byId(book.getId()).orElseThrow();
+        oldBookEntity.setTitle(book.getTitle());
+        oldBookEntity.setDescription(book.getDescription());
+        return Optional.of(oldBookEntity);
+    }
+    public Boolean delete(Integer id){
+        Optional<BookEntity> book = byId(id);
+        if(book.isEmpty()){
+            return false;
+        }
+        bookStorage.remove(book.get());
+        return true;
+    }
 }

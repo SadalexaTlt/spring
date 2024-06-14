@@ -32,5 +32,14 @@ public class BookApiController {
     public BookEntity create(@RequestBody BookEntity request){
         return bookService.create(request.getTitle(),request.getDescription());
     }
+    @PutMapping("/api/v1/book/{id}")
+    public BookEntity edit(@PathVariable Integer id, @RequestBody BookEntity request){
+        return bookService.edit(request).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @DeleteMapping("/api/v1/book/{id}")
+    public Boolean delete(@PathVariable Integer id){
+        return bookService.delete(id);
+    }
 
 }
